@@ -290,7 +290,11 @@ def get_user_input():
                 break
             elif choice == 1:
                 source = input("Directory path to compress: ").strip()
-                dest = input("ASAR file path to create: ").strip()
+                dest = input("ASAR file path to create(Leave empty for auto-generation): ").strip()
+                if not dest:
+                    source_path = Path(source)
+                    dest = str(source_path.parent / f"{source_path.name}.asar")
+                    print(f"Auto-generated output path: {dest}")
                 exclude_input = input("Exclude patterns (comma-separated, press enter if none): ").strip()
 
                 exclude_patterns = [p.strip() for p in exclude_input.split(',')] if exclude_input else None
